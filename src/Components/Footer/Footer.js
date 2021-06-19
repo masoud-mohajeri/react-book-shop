@@ -15,16 +15,52 @@ function Footer(props) {
       showLabels
       value={navValue}
       onChange={(event, newValue) => {
-        console.log(event);
+        // console.log(event);
         setNavValue(newValue);
       }}
     >
-      <BottomNavigationAction component={Link} to="" label="home" value="/" icon={<RestoreIcon />} />
-      <BottomNavigationAction component={Link} to="/admin" label="Admin" value="/admin" icon={<RestoreIcon />} />
-      <BottomNavigationAction component={Link} to="/login" label="ورود" value="/login" icon={<RestoreIcon />} />
-      <BottomNavigationAction component={Link} to="/customer" label="customer" value="/customer" icon={<RestoreIcon />} />
-      <BottomNavigationAction component={Link} to="/products" label="products" value="/products" icon={<RestoreIcon />} />
-      <BottomNavigationAction component={Link} to="/shopping-card" label="shopping-card" value="/shopping-card" icon={<RestoreIcon />} />
+      <BottomNavigationAction
+        component={Link}
+        to=''
+        label='home'
+        value='/'
+        icon={<RestoreIcon />}
+      />
+      <BottomNavigationAction
+        component={Link}
+        to='/admin'
+        label='Admin'
+        value='/admin'
+        icon={<RestoreIcon />}
+      />
+      <BottomNavigationAction
+        component={Link}
+        to='/login'
+        label='ورود'
+        value='/login'
+        icon={<RestoreIcon />}
+      />
+      <BottomNavigationAction
+        component={Link}
+        to='/customer'
+        label='customer'
+        value='/customer'
+        icon={<RestoreIcon />}
+      />
+      <BottomNavigationAction
+        component={Link}
+        to='/products'
+        label='products'
+        value='/products'
+        icon={<RestoreIcon />}
+      />
+      <BottomNavigationAction
+        component={Link}
+        to='/shopping-card'
+        label='shopping-card'
+        value='/shopping-card'
+        icon={<RestoreIcon />}
+      />
     </BottomNavigation>
   );
 }

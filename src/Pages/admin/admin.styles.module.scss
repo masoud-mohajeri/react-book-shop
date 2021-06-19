@@ -1,0 +1,10 @@
+.body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  .tabs {
+    // display: flex;
+    margin: auto;
+  }
+}

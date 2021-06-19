@@ -4,8 +4,8 @@ import LoginForm from '../../Components/loginForms/LoginForm';
 import RegisterForm from '../../Components/loginForms/RegisterForm';
 import styles from './login.page.module.scss';
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
-import { declareError, resolveError } from '../../Redux/Errors/errors.actions';
+import { useDispatch } from 'react-redux';
+// import { declareError, resolveError } from '../../Redux/Errors/errors.actions';
 import {
   userLoginEmail,
   LoginWithGoogle,
@@ -13,10 +13,10 @@ import {
 } from '../../Redux/user/user.actions';
 
 function Login() {
-  const { userState, errorState } = useSelector((state) => ({
-    error: state.error,
-    user: state.user,
-  }));
+  // const { userState, errorState } = useSelector((state) => ({
+  //   error: state.error,
+  //   user: state.user,
+  // }));
 
   const dispatch = useDispatch();
 

@@ -8,8 +8,6 @@ import {
   SaveUser,
   UnregisterEmail,
 } from '../../Firebase/auth.utilitis';
-//
-import { push } from 'react-router-redux';
 
 export const userLogin = (user) => {
   return {
@@ -81,7 +79,6 @@ export const LoginWithGoogle = () => async (dispatch) => {
   try {
     const login = await signinWithGoogle();
     const userInfo = await GetUser(login.user.uid);
-    console.log(userInfo.data());
     if (userInfo.exists) {
       dispatch(
         declareError({
@@ -93,9 +90,8 @@ export const LoginWithGoogle = () => async (dispatch) => {
       );
       //
       dispatch(userLogin(userInfo.data()));
-      dispatch(push('/'));
     } else {
-      const unReg = await UnregisterEmail();
+      await UnregisterEmail();
       dispatch(
         declareError({
           title: '',
@@ -131,7 +127,7 @@ export const RegistrationAction = (name, email, password, role) => async (
   );
   try {
     const reg = await RegWithEmail(email, password);
-    const save = await SaveUser({ uid: reg.user.uid, name, email, role });
+    await SaveUser({ uid: reg.user.uid, name, email, role });
     dispatch(
       userLogin({
         name,
@@ -148,8 +144,6 @@ export const RegistrationAction = (name, email, password, role) => async (
       })
     );
   } catch (error) {
-    console.log(error.message);
-
     if (error.code === 'auth/email-already-in-use') {
       dispatch(
         declareError({
@@ -160,8 +154,7 @@ export const RegistrationAction = (name, email, password, role) => async (
         })
       );
     } else {
-      const unReg = await UnregisterEmail();
-
+      await UnregisterEmail();
       dispatch(
         declareError({
           title: '',

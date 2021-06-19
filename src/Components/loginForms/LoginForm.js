@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './loginForm.styles.module.scss';
+import { withRouter } from 'react-router';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 // material
@@ -49,16 +50,17 @@ function LoginForm(props) {
         .required(' این فیلد الزامی است'),
     }),
     onSubmit: (values) => {
-      new Promise((resolve, reject) => {
-        props.emailLogin(values.email, values.password);
-        resolve('done');
-      }).then((res) => {
-        // if (user.userExists) {
-        resetForm();
-        // }
-      });
+      props.emailLogin(values.email, values.password);
     },
   });
+
+  useEffect(() => {
+    if (user.userExists) {
+      resetForm();
+      props.history.push('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.userExists]);
 
   return (
     <div className={styles.formContainer}>
@@ -125,4 +127,4 @@ function LoginForm(props) {
   );
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);

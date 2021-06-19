@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './loginForm.styles.module.scss';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -8,6 +8,7 @@ import Radio from '@material-ui/core/Radio';
 import Button from '@material-ui/core/Button';
 // redux
 import { useSelector } from 'react-redux';
+import { withRouter } from 'react-router';
 
 const mapState = ({ user }) => ({
   user: user,
@@ -51,9 +52,6 @@ function RegisterForm(props) {
     }),
     onSubmit: (values) => {
       handleRegisterForm(values);
-      if (user.userExists) {
-        resetForm();
-      }
     },
   });
 
@@ -63,9 +61,17 @@ function RegisterForm(props) {
       return;
     }
     setFormError('');
-    console.log(val);
+    // console.log(val);
     props.register(values.name, values.email, values.password, values.role);
   };
+
+  useEffect(() => {
+    if (user.userExists) {
+      resetForm();
+      props.history.push('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.userExists]);
 
   return (
     <div className={styles.formContainer}>
@@ -158,4 +164,4 @@ function RegisterForm(props) {
   );
 }
 
-export default RegisterForm;
+export default withRouter(RegisterForm);

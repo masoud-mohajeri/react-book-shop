@@ -33,6 +33,7 @@ export function ModalBody(props) {
 
   return (
     <React.Fragment>
+      {props.children}
       {errorExists ? (
         <div className={styles.modal}>
           <div className={styles.backDrop}>
