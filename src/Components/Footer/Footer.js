@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import styles from './footer.style.module.scss';
 import { Link, withRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 // Material
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
-import RestoreIcon from '@material-ui/icons/Restore';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import HomeIcon from '@material-ui/icons/Home';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 function Footer(props) {
   const [navValue, setNavValue] = useState(props.history.location.pathname);
   // console.log(props.history.location.pathname);
   // console.log(navValue);
+  const { user } = useSelector((state) => ({ user: state.user }));
   return (
     <BottomNavigation
       className={styles.footer}
@@ -22,45 +28,46 @@ function Footer(props) {
       <BottomNavigationAction
         component={Link}
         to=''
-        label='home'
+        label='خانه'
         value='/'
-        icon={<RestoreIcon />}
+        icon={<HomeIcon />}
       />
-      <BottomNavigationAction
-        component={Link}
-        to='/admin'
-        label='Admin'
-        value='/admin'
-        icon={<RestoreIcon />}
-      />
-      <BottomNavigationAction
-        component={Link}
-        to='/login'
-        label='ورود'
-        value='/login'
-        icon={<RestoreIcon />}
-      />
-      <BottomNavigationAction
-        component={Link}
-        to='/customer'
-        label='customer'
-        value='/customer'
-        icon={<RestoreIcon />}
-      />
-      <BottomNavigationAction
-        component={Link}
-        to='/products'
-        label='products'
-        value='/products'
-        icon={<RestoreIcon />}
-      />
-      <BottomNavigationAction
-        component={Link}
-        to='/shopping-card'
-        label='shopping-card'
-        value='/shopping-card'
-        icon={<RestoreIcon />}
-      />
+      {user.userRole === 'admin' ? (
+        <BottomNavigationAction
+          component={Link}
+          to='/admin'
+          label='ادمین'
+          value='/admin'
+          icon={<SupervisorAccountIcon />}
+        />
+      ) : null}
+      {user.userRole === 'customer' ? (
+        <BottomNavigationAction
+          component={Link}
+          to='/customer'
+          label='مشتری'
+          value='/customer'
+          icon={<SupervisedUserCircleIcon />}
+        />
+      ) : null}
+      {user.userRole === 'customer' ? (
+        <BottomNavigationAction
+          component={Link}
+          to='/products'
+          label='محصولات'
+          value='/products'
+          icon={<MenuBookIcon />}
+        />
+      ) : null}
+      {user.userRole === 'customer' ? (
+        <BottomNavigationAction
+          component={Link}
+          to='/shopping-card'
+          label='سبد خرید'
+          value='/shopping-card'
+          icon={<ShoppingCartIcon />}
+        />
+      ) : null}
     </BottomNavigation>
   );
 }

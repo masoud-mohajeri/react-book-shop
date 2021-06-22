@@ -131,7 +131,7 @@ export const deleteProduct = (id) => ({
 });
 
 export const editProduct = (product) => {
-  console.log(product);
+  // console.log(product);
   return {
     type: ProductsTypes.EDIT_PRODUCT,
     payload: product,

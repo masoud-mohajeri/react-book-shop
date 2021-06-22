@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  margin: 5px 0;
+  // border: 1px solid red;
+  // overflow: hidden;
+  .body {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    .info {
+      .books {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        justify-content: flex-start;
+        margin: 3px;
+      }
+    }
+    .form {
+      display: flex;
+      align-content: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+  }
+  // @media (max-width:1200) {
+  //   width: ;
+
+  // }
+}
+
+.dispIB {
+  display: inline-block;
+}

@@ -18,7 +18,7 @@ const ProductsReducer = (state = initialState, action) => {
       };
     case ProductTypes.DELETE_PRODUCT:
       const deleteProd = state.products.filter((prod) => {
-        console.log(prod);
+        // console.log(prod);
         return prod.id !== action.payload;
       });
       return {

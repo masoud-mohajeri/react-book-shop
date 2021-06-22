@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   flex-direction: column;
   justify-items: center;
-  width: 40%;
+  width: 50%;
   margin: auto;
   .form {
     width: 100%;
@@ -17,7 +17,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     justify-items: center;
-    padding-bottom: 56px;
+    padding-bottom: 60px;
 
     .TextField {
       display: flex;
@@ -42,10 +42,13 @@
     font-size: small;
     color: red;
   }
-  @media (max-width: 900px) {
-    width: 60%;
+  @media (max-width: 1500px) {
+    width: 65%;
   }
-  @media (max-width: 600px) {
-    width: 90%;
+  @media (max-width: 1000px) {
+    width: 80%;
+  }
+  @media (max-width: 800px) {
+    width: 96%;
   }
 }

@@ -4,7 +4,6 @@ import AddProdForm from '../addProdForm/AddProdForm';
 
 // Material
 import { Button } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
 
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
@@ -15,46 +14,40 @@ function BookEditor(props) {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.vitrin}>
-        <Grid container>
-          <Grid item xs={3}>
-            <img
-              className={styles.image}
-              src={props.initialValues.imageUrl}
-              alt='img of prod'
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <h4> نام کتاب : {props.initialValues.name}</h4>
-          </Grid>
-          <Grid item xs={3}>
-            <h4> موجودی : {props.initialValues.Inventory}</h4>
-          </Grid>
-          <Grid item xs={3}>
-            <Button onClick={editMenuHandler}>
-              {open ? <ExpandLess /> : <ExpandMore />}
-            </Button>
-          </Grid>
-        </Grid>
-      </div>
-      {open ? (
-        <div className={styles.editMenu}>
-          <Grid container>
-            <Grid item xs={12}>
-              <AddProdForm
-                initialValues={props.initialValues}
-                submitHelper={props.editProdSubmit}
-                redButton={{
-                  type: 'edit',
-                  action: props.deleteProdHandler,
-                }}
-              ></AddProdForm>
-            </Grid>
-          </Grid>
+    <section className={styles.container}>
+      <section className={styles.vitrin}>
+        <img
+          className={styles.image}
+          src={props.initialValues.imageUrl}
+          alt='img of prod'
+        />
+        <div className={styles.name}>
+          <small>نام کتاب </small> <h4>{props.initialValues.name}</h4>
         </div>
+        <div className={styles.info}>
+          <small>موجودی </small> <h4>{props.initialValues.Inventory}</h4>
+        </div>
+        <div className={styles.info}>
+          <Button onClick={editMenuHandler}>
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </Button>
+        </div>
+      </section>
+      {open ? (
+        <section className={styles.editMenu}>
+          <div>
+            <AddProdForm
+              initialValues={props.initialValues}
+              submitHelper={props.editProdSubmit}
+              redButton={{
+                type: 'edit',
+                action: props.deleteProdHandler,
+              }}
+            ></AddProdForm>
+          </div>
+        </section>
       ) : null}
-    </div>
+    </section>
   );
 }
 

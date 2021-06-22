@@ -24,3 +24,12 @@ html {
 * {
   font-family: 'Vazir', 'Roboto', sans-serif;
 }
+
+//
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a5dc9;
+}

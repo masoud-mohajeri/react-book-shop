@@ -11,16 +11,25 @@ import { useSelector, useDispatch } from 'react-redux';
 import BookEditor from '../../Components/BookEditor/BookEditor';
 // material
 import { CircularProgress, Tab, Tabs } from '@material-ui/core';
+import PostOrder from '../../Components/PostOrder/PostOrder';
+import { postOrder } from '../../Firebase/purchse.utilities';
+import { declareError } from '../../Redux/Errors/errors.actions';
+import { getAdminOrdersInfoAction } from '../../Redux/shcard/shCard.actions';
 
-const mapState = ({ products }) => ({ products: products.products });
+const mapState = ({ products, card }) => ({
+  products: products.products,
+  orders: card.adminOrders,
+});
 
 function Admin() {
-  const [admin, setAdmin] = useState('edit');
+  const [admin, setAdmin] = useState('order');
+  // const [orders, setOrders] = useState([]);
   const dispatch = useDispatch();
-  const { products } = useSelector(mapState);
+  const { products, orders } = useSelector(mapState);
 
   useEffect(() => {
     dispatch(GetAllProdsFromDB());
+    dispatch(getAdminOrdersInfoAction());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,13 +42,44 @@ function Admin() {
   };
 
   const prodEditDispatcher = (prod) => {
-    console.log('edit', prod);
     dispatch(editProdAction(prod));
   };
 
   const deleteActionDispatcher = (id) => {
-    console.log('delete', id);
     dispatch(deleteProductAction(id));
+  };
+
+  const postOrderCodeSubmiter = (id, postalCode) => {
+    dispatch(
+      declareError({
+        body: 'لطفا کمی صبر کنید',
+        title: '',
+        spinner: true,
+        dismiss: false,
+      })
+    );
+    postOrder(id, postalCode)
+      .then((res) => {
+        dispatch(
+          declareError({
+            body: 'کالا با موفقیت ارسال شد ',
+            title: '',
+            spinner: false,
+            dismiss: true,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(
+          declareError({
+            body: 'مشکلی در ارسال وجود دارد ، لطفا دوباره امتحان کنید ',
+            title: '',
+            spinner: false,
+            dismiss: true,
+          })
+        );
+      });
   };
 
   let toEdit = null;
@@ -48,11 +88,11 @@ function Admin() {
   } else if (products.length === 0) {
     toEdit = <h2>کتابی موجود نیست</h2>;
   } else if (products.length !== 0) {
-    toEdit = products.map((prod) => {
-      // console.log(prod);
+    toEdit = products.map((prod, index) => {
+      // console.log('id', prod.id);
       return (
         <BookEditor
-          key={prod.id}
+          key={index}
           initialValues={prod}
           deleteProdHandler={deleteActionDispatcher}
           editProdSubmit={prodEditDispatcher}
@@ -72,16 +112,37 @@ function Admin() {
       >
         <Tab label='اضافه کردن' value='add' />
         <Tab label='اصلاح' value='edit' />
+        <Tab label=' سفارشات ارسال نشده' value='order' />
       </Tabs>
 
       <div>
         {admin === 'edit' ? (
-          toEdit
+          <div className={styles.marginb}>{toEdit}</div>
         ) : admin === 'add' ? (
-          <AddProdForm
-            submitHelper={addProdSubmit}
-            redButton={{ text: 'پاک کردن ' }}
-          ></AddProdForm>
+          <div className={styles.container}>
+            <AddProdForm
+              submitHelper={addProdSubmit}
+              redButton={{ text: 'پاک کردن ' }}
+            ></AddProdForm>
+          </div>
+        ) : admin === 'order' ? (
+          <div className={styles.container}>
+            {!orders ? (
+              <CircularProgress />
+            ) : orders.length === 0 ? (
+              <h2> سفارشی ثبت نشده </h2>
+            ) : (
+              orders.map((ord) => (
+                <PostOrder
+                  key={ord.id}
+                  status='admin'
+                  info={ord}
+                  sendHandler={postOrderCodeSubmiter}
+                ></PostOrder>
+              ))
+            )}
+            {/* <pre>{JSON.stringify(orders, null, 2)}</pre> */}
+          </div>
         ) : null}
       </div>
     </div>
