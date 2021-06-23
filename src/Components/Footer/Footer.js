@@ -41,7 +41,7 @@ function Footer(props) {
           icon={<SupervisorAccountIcon />}
         />
       ) : null}
-      {user.userRole === 'customer' ? (
+      {user.userRole && user.userExistss === 'customer' ? (
         <BottomNavigationAction
           component={Link}
           to='/customer'

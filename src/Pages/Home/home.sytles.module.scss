@@ -1,0 +1,24 @@
+.theSlide {
+  width: 300px;
+  height: 78vh;
+  // border: 1px solid red;
+  margin: auto;
+  .image {
+    display: flex;
+    justify-content: center;
+    margin: 15px auto;
+    img {
+      width: 70%;
+
+      height: auto;
+    }
+  }
+  .content {
+    text-align: justify;
+
+    a {
+      text-decoration: double;
+      margin: 4px;
+    }
+  }
+}
