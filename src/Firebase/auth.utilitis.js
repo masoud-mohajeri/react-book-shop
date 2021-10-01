@@ -46,20 +46,3 @@ export const LoginWithEmail = (email, password) => {
 export const UnregisterEmail = () => {
   return firebase.auth().currentUser.delete();
 };
-//  prods
-// const storage = firebase.storage();
-
-// export const uploadHandler = async (file) => {
-//   try {
-//     const storageRef = await storage.ref();
-//     const uploadTask = await storageRef
-//       .child('images/' + file.name + Date.now())
-//       .put(file);
-//     const dlUrl = await uploadTask.snapshot.ref.getDownloadURL();
-//     console.log(dlUrl);
-//     return dlUrl;
-//   } catch (error) {
-//     console.log(error);
-//     return false;
-//   }
-// };
